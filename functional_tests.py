@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 
@@ -15,7 +16,7 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.get('http://localhost:8000')
 
         # User notices title tab
-        self.assertIn('To-do', self.browser.title)
+        self.assertIn('To-Do', self.browser.title)
 
         # User is invited to enter a to-do item.
         inputbox = self.browser.find_element_by_id('id_new_item')
@@ -33,7 +34,8 @@ class NewVisitorTest(unittest.TestCase):
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
-            any(row.text == 'Economics' for row in rows)
+            any(row.text == 'Economics' for row in rows),
+            'New to-do item does not appear in table.'
         )
 
         self.fail('Finish test!')
